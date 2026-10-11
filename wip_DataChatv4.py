@@ -12,9 +12,14 @@ import io
 import ast
 import re
 import html
-path = 'F:\\DataChat\\chatbot'
-os.chdir(path)
-os.getcwd()
+from pathlib import Path
+import pandas as pd
+
+BASE_DIR = Path(__file__).resolve().parent
+df = pd.read_csv(BASE_DIR / "datainfo.csv")
+#path = 'F:\\DataChat\\chatbot'
+#os.chdir(path)
+#os.getcwd()
 
 import pandas as pd
 import streamlit as st
