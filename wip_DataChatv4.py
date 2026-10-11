@@ -62,7 +62,7 @@ st.set_page_config(
 ###ngrok token
 ###ngrok http 80 --url https://spookily-clapper-squeeze.ngrok-free.dev
 
-API_KEY = "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"
+#API_KEY = "will add here locally"
 
 client = OpenAI(
     api_key=st.secrets["OPENAI_API_KEY"]
