@@ -52,8 +52,8 @@ st.set_page_config(
 # ============================================================
 # 2. CONFIGURATION
 # ============================================================
-input_file = "F:\\DataChat\\chatbot"
-FILE_PATH = input_file+"\\"+"datainfo.csv"
+#input_file = "F:\\DataChat\\chatbot"
+#FILE_PATH = input_file+"\\"+"datainfo.csv"
 
 ###  ngrok token
 ##   ngrok config add-authtoken 3KV53sd2ljDXySVOQ4uQyTgwxb9_42rVBfaz3x2VrBMuqaW8Z  
@@ -142,7 +142,7 @@ with tab2:
     
     try:
     
-        df = load_data(FILE_PATH)
+        df = df
     
     except Exception as e:
     
