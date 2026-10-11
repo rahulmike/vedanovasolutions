@@ -65,7 +65,7 @@ FILE_PATH = input_file+"\\"+"datainfo.csv"
 API_KEY = "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"
 
 client = OpenAI(
-    api_key=API_KEY
+    api_key=st.secrets["OPENAI_API_KEY"]
 )
 
 st.set_page_config(
