@@ -18,12 +18,18 @@ def test_health_endpoint():
     assert data["status"] == "online"
     assert data["indexed_documents"] > 0
 
+def test_frontend_serve():
+    """Verify that the frontend web application is served at root."""
+    res = client.get("/")
+    assert res.status_code == 200
+    assert "NexaData AI Assistant" in res.text
+
 def test_brand_info_endpoint():
     """Verify company branding and starter prompts metadata."""
     res = client.get("/api/info")
     assert res.status_code == 200
     data = res.json()
-    assert data["company_name"] == "VedaNova AI"
+    assert data["company_name"] == "NexaData AI"
     assert len(data["prompt_chips"]) >= 3
 
 def test_company_chat_mode():
@@ -58,6 +64,7 @@ def test_invalid_request_validation():
 
 if __name__ == "__main__":
     test_health_endpoint()
+    test_frontend_serve()
     test_brand_info_endpoint()
     test_company_chat_mode()
     test_general_chat_mode()

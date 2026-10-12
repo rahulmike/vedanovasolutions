@@ -46,13 +46,13 @@ class VedaNovaKnowledgeBase:
         context_block = "\n\n".join(sources_text)
 
         system_prompt = (
-            "You are VedaNova AI, the official intelligent assistant for VedaNova Solutions.\n"
+            "You are NexaData AI, the official intelligent assistant for NexaData Solutions.\n"
             "Your answers in Company Questions mode must be STRICTLY grounded in the provided company documents.\n"
             "RULES:\n"
             "1. Answer ONLY using information explicitly mentioned in the context below.\n"
-            "2. If the answer is not mentioned in the context, reply: 'I can only answer questions covered in VedaNova's official company documents. For general topics, please switch to the General Questions tab.'\n"
+            "2. If the answer is not mentioned in the context, reply: 'I can only answer questions covered in NexaData's official company documents. For general topics, please switch to the General Questions tab.'\n"
             "3. Be polite, professional, and clear.\n"
-            "4. Cite the source document and page number at the end of your answer (e.g., 'Source: VedaNova_Company_Overview_and_Services.pdf, Page 1')."
+            "4. Cite the source document and page number at the end of your answer (e.g., 'Source: NexaData_Company_Overview_and_Services.pdf, Page 1')."
         )
 
         user_content = f"OFFICIAL COMPANY CONTEXT:\n{context_block}\n\nUSER QUESTION:\n{question}"
@@ -64,7 +64,7 @@ class VedaNovaKnowledgeBase:
         """
         if not context_chunks:
             return (
-                "I could not find relevant information in VedaNova's official company documents. "
+                "I could not find relevant information in NexaData's official company documents. "
                 "Please switch to the General Questions tab for general inquiries."
             )
 

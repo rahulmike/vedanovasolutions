@@ -2,8 +2,11 @@
 import os
 from datetime import datetime
 from typing import Dict, Any, List, Optional
+from dotenv import load_dotenv
 from rag.engine import knowledge_base
 from backend.models import SourceCitation, ChatResponse
+
+load_dotenv()
 
 class ChatOrchestrator:
     """
@@ -37,7 +40,7 @@ class ChatOrchestrator:
 
         if not context_chunks:
             reply = (
-                "I could not find information about that in VedaNova's official company documents. "
+                "I could not find information about that in NexaData's official company documents. "
                 "Please switch to the **General Questions** tab for open-ended questions."
             )
             return ChatResponse(
@@ -93,9 +96,9 @@ class ChatOrchestrator:
                         {
                             "role": "system",
                             "content": (
-                                "You are VedaNova AI, a helpful, intelligent assistant. "
-                                "Answer clearly, accurately, and politely on any general topic, "
-                                "science, programming, wellness, or general knowledge."
+                                "You are NexaData AI, a helpful, intelligent assistant. "
+                                "Answer clearly, accurately, and politely on Python, data science, "
+                                "analytics, and general knowledge."
                             )
                         },
                         {"role": "user", "content": message}
@@ -116,10 +119,10 @@ class ChatOrchestrator:
         # Offline General AI Answer
         reply = (
             f"Hello! In **General Questions** mode, I can help answer general topics, definitions, "
-            f"and broad wellness questions.\n\n"
+            f"and broad programming/data science questions.\n\n"
             f"*(Note: You asked: '{message}'. To connect this to live cloud LLM completions, "
             f"ensure your server OPENAI_API_KEY is configured in .env. Switch to 'Company Questions' "
-            f"to query VedaNova's local PDF documents directly).* "
+            f"to query NexaData's local PDF documents directly).* "
         )
         return ChatResponse(
             reply=reply,

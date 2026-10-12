@@ -1,8 +1,10 @@
-"""FastAPI Application for VedaNova AI."""
+"""FastAPI Application for NexaData AI."""
 import sys
 from pathlib import Path
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(BASE_DIR))
@@ -11,8 +13,10 @@ from backend.models import ChatRequest, ChatResponse, BrandInfoResponse, PromptC
 from backend.orchestrator import orchestrator
 from rag.engine import knowledge_base
 
+FRONTEND_DIR = BASE_DIR / "frontend"
+
 app = FastAPI(
-    title="VedaNova AI API",
+    title="NexaData AI API",
     description="Dual-Mode Conversational API (General LLM & Company PDF RAG)",
     version="1.0.0"
 )
@@ -26,28 +30,48 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Mount static frontend directory
+if FRONTEND_DIR.exists():
+    app.mount("/static", StaticFiles(directory=str(FRONTEND_DIR)), name="static")
+
+@app.get("/")
+def serve_index():
+    """Serve the standalone NexaData web application."""
+    index_file = FRONTEND_DIR / "index.html"
+    if index_file.exists():
+        return FileResponse(str(index_file))
+    return {"message": "NexaData AI API online. Frontend index.html not found."}
+
+@app.get("/logo.png")
+def serve_logo():
+    """Direct route for official NexaData AI logo badge."""
+    logo_file = BASE_DIR / "NexaData AI_ Ask_Analyze_Discover.png"
+    if logo_file.exists():
+        return FileResponse(str(logo_file), media_type="image/png")
+    return FileResponse(str(FRONTEND_DIR / "logo.png"), media_type="image/png")
+
 @app.get("/api/health")
 def health_check():
     """Health check and readiness probe."""
     return {
         "status": "online",
-        "app": "VedaNova AI",
+        "app": "NexaData AI",
         "indexed_documents": len(knowledge_base.indexed_files),
         "total_chunks": len(knowledge_base.chunks)
     }
 
 @app.get("/api/info", response_model=BrandInfoResponse)
 def get_brand_info():
-    """Returns VedaNova branding metadata and starter prompts."""
+    """Returns NexaData branding metadata and starter prompts."""
     return BrandInfoResponse(
-        company_name="VedaNova AI",
-        tagline="Holistic Wellness for a Better Tomorrow",
-        subtitle="Integrating Ayurveda, Technology and Research for Modern Living",
+        company_name="NexaData AI",
+        tagline="Ask. Analyze. Discover.",
+        subtitle="Autonomous AI Data Analytics & Enterprise Intelligence",
         prompt_chips=[
-            PromptChip(label="What is VedaNova?", prompt="What is VedaNova and what are its core pillars?"),
-            PromptChip(label="Tell me about your services", prompt="What are the available wellness services and pricing?"),
-            PromptChip(label="How does it work?", prompt="How does the 3-step consultation process work?"),
-            PromptChip(label="Refund policy", prompt="What is the cancellation and refund policy?")
+            PromptChip(label="What is NexaData?", prompt="What is NexaData and what are its core capabilities?"),
+            PromptChip(label="Our Solutions", prompt="What are the available data solutions and services?"),
+            PromptChip(label="How does it work?", prompt="How does the AI analysis and query system work?"),
+            PromptChip(label="Platform Policies", prompt="What are the data privacy and platform policies?")
         ],
         indexed_documents=knowledge_base.indexed_files,
         total_document_chunks=len(knowledge_base.chunks)

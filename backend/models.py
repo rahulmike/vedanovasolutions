@@ -1,4 +1,4 @@
-"""Request and Response Pydantic models for VedaNova AI API."""
+"""Request and Response Pydantic models for NexaData AI API."""
 from typing import List, Optional, Dict, Any, Literal
 from pydantic import BaseModel, Field
 

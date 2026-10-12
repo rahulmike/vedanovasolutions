@@ -1,4 +1,4 @@
-"""Generate sample company PDF for VedaNova Solutions."""
+"""Generate sample company PDF for NexaData Solutions."""
 import os
 from pathlib import Path
 from reportlab.lib.pagesizes import letter
@@ -6,10 +6,10 @@ from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib import colors
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle, HRFlowable
 
-def create_vedanova_pdf():
+def create_nexadata_pdf():
     output_dir = Path(__file__).resolve().parent.parent / "company_docs"
     output_dir.mkdir(parents=True, exist_ok=True)
-    pdf_path = output_dir / "VedaNova_Company_Overview_and_Services.pdf"
+    pdf_path = output_dir / "NexaData_Company_Overview_and_Services.pdf"
 
     doc = SimpleDocTemplate(
         str(pdf_path),
@@ -23,7 +23,7 @@ def create_vedanova_pdf():
     styles = getSampleStyleSheet()
     
     title_style = ParagraphStyle(
-        "VedaTitle",
+        "NexaTitle",
         parent=styles["Title"],
         fontName="Helvetica-Bold",
         fontSize=24,
@@ -33,7 +33,7 @@ def create_vedanova_pdf():
     )
 
     subtitle_style = ParagraphStyle(
-        "VedaSub",
+        "NexaSub",
         parent=styles["Normal"],
         fontName="Helvetica-Oblique",
         fontSize=12,
@@ -42,7 +42,7 @@ def create_vedanova_pdf():
     )
 
     h1_style = ParagraphStyle(
-        "VedaH1",
+        "NexaH1",
         parent=styles["Heading1"],
         fontName="Helvetica-Bold",
         fontSize=15,
@@ -53,7 +53,7 @@ def create_vedanova_pdf():
     )
 
     body_style = ParagraphStyle(
-        "VedaBody",
+        "NexaBody",
         parent=styles["Normal"],
         fontName="Helvetica",
         fontSize=10,
@@ -62,7 +62,7 @@ def create_vedanova_pdf():
     )
 
     bullet_style = ParagraphStyle(
-        "VedaBullet",
+        "NexaBullet",
         parent=styles["Normal"],
         fontName="Helvetica",
         fontSize=10,
@@ -74,53 +74,48 @@ def create_vedanova_pdf():
     story = []
 
     # Title & Header
-    story.append(Paragraph("VedaNova Solutions", title_style))
-    story.append(Paragraph("Holistic Wellness for a Better Tomorrow — Integrating Ayurveda, Technology and Research", subtitle_style))
+    story.append(Paragraph("NexaData Solutions", title_style))
+    story.append(Paragraph("Ask. Analyze. Discover. — Autonomous AI Data Analytics & Enterprise Intelligence", subtitle_style))
     story.append(Spacer(1, 10))
     story.append(HRFlowable(width="100%", thickness=2, color=colors.HexColor("#2563EB"), spaceAfter=15))
 
     # Section 1: About
-    story.append(Paragraph("1. About VedaNova Solutions", h1_style))
+    story.append(Paragraph("1. About NexaData Solutions", h1_style))
     story.append(Paragraph(
-        "VedaNova is a premier holistic wellness and healthcare technology platform. We seamlessly bridge the ancient wisdom of classical Ayurveda with cutting-edge digital health technology and clinical research. Our mission is to make individualized, preventative healthcare accessible, scientific, and actionable for modern lifestyles.",
+        "NexaData Solutions is an advanced autonomous data intelligence and AI analytics platform. We bridge complex relational databases, unstructured documents, and business intelligence dashboards through natural language conversational AI. Our mission is to democratize instant, accurate data discovery for non-technical users and enterprise decision-makers.",
         body_style
     ))
     story.append(Spacer(1, 8))
-    story.append(Paragraph("<b>Core Pillars:</b>", body_style))
-    story.append(Paragraph("• <b>Individualized Care:</b> Every individual is uniquely profiled by Dosha constitution (Vata, Pitta, Kapha) and biometric data.", bullet_style))
-    story.append(Paragraph("• <b>Modern Research Integration:</b> All therapies and herbal formulations are backed by lab-tested scientific efficacy.", bullet_style))
-    story.append(Paragraph("• <b>Digital Tele-Wellness:</b> Continuous tracking, tele-consultations, and AI-assisted wellness routines.", bullet_style))
+    story.append(Paragraph("<b>Core Platform Pillars:</b>", body_style))
+    story.append(Paragraph("• <b>Ask:</b> Natural language conversational interface allowing users to query data in plain English.", bullet_style))
+    story.append(Paragraph("• <b>Analyze:</b> Ultra-fast in-memory DuckDB query execution processing 50,000+ records in ~30 milliseconds.", bullet_style))
+    story.append(Paragraph("• <b>Discover:</b> Autonomous exploratory data analysis, dynamic Plotly visualizations, and executive PDF reporting.", bullet_style))
 
     # Section 2: Services
-    story.append(Paragraph("2. Wellness Services & Consultation Programs", h1_style))
-    story.append(Paragraph("VedaNova provides comprehensive wellness solutions tailored for individuals and corporations:", body_style))
+    story.append(Paragraph("2. Enterprise Solutions & Pricing Plans", h1_style))
+    story.append(Paragraph("NexaData offers scalable tiers for teams of all sizes:", body_style))
     story.append(Spacer(1, 6))
 
     services_data = [
-        [Paragraph("<b>Service</b>", body_style), Paragraph("<b>Description</b>", body_style), Paragraph("<b>Pricing</b>", body_style)],
+        [Paragraph("<b>Tier</b>", body_style), Paragraph("<b>Features Included</b>", body_style), Paragraph("<b>Pricing</b>", body_style)],
         [
-            Paragraph("<b>Holistic Dosha Profiling & Consultation</b>", body_style),
-            Paragraph("Comprehensive 60-minute assessment with certified Ayurvedic doctors analyzing pulse, diet, stress markers, and dosha balance.", body_style),
-            Paragraph("$75 / ₹2,499", body_style)
+            Paragraph("<b>Starter Intelligence Plan</b>", body_style),
+            Paragraph("Up to 5 CSV/Excel datasets, standard AI querying, interactive chart exports, and community support.", body_style),
+            Paragraph("$49 / month", body_style)
         ],
         [
-            Paragraph("<b>Integrative Nutrition & Herbal Therapy</b>", body_style),
-            Paragraph("Personalized gut health restoration plan with certified organic herbal formulations delivered to your doorstep.", body_style),
-            Paragraph("$110 / ₹3,899 (incl. herbal kit)", body_style)
+            Paragraph("<b>Professional Analytics Plan</b>", body_style),
+            Paragraph("Unlimited datasets, live SQL database connectors, executive PDF generator, and sub-millisecond document RAG.", body_style),
+            Paragraph("$149 / month", body_style)
         ],
         [
-            Paragraph("<b>Mental Wellness & Mindfulness Tech</b>", body_style),
-            Paragraph("Guided breathwork, sleep optimization protocols, and neuro-acoustic meditation routines.", body_style),
-            Paragraph("$50 / ₹1,799 / month", body_style)
-        ],
-        [
-            Paragraph("<b>Corporate Holistic Wellness Plan</b>", body_style),
-            Paragraph("Custom ergonomic assessments, employee stress resilience workshops, and quarterly wellness challenges.", body_style),
-            Paragraph("Custom Enterprise Quote", body_style)
+            Paragraph("<b>Enterprise Dedicated Instance</b>", body_style),
+            Paragraph("Custom private cloud deployment (AWS/Azure/GCP), SSO/SAML authentication, SLA guarantee, and custom connector engineering.", body_style),
+            Paragraph("Custom Quote", body_style)
         ]
     ]
 
-    srv_table = Table(services_data, colWidths=[150, 270, 90])
+    srv_table = Table(services_data, colWidths=[140, 280, 90])
     srv_table.setStyle(TableStyle([
         ("BACKGROUND", (0, 0), (-1, 0), colors.HexColor("#F1F5F9")),
         ("GRID", (0, 0), (-1, -1), 0.5, colors.HexColor("#CBD5E1")),
@@ -133,24 +128,18 @@ def create_vedanova_pdf():
 
     # Section 3: How it Works
     story.append(Paragraph("3. How It Works (The 3-Step Journey)", h1_style))
-    story.append(Paragraph("<b>Step 1: Digital Wellness Assessment:</b> Complete our 10-minute online questionnaire covering lifestyle, stress, digestion, and daily energy levels.", bullet_style))
-    story.append(Paragraph("<b>Step 2: 1-on-1 Doctor Consultation:</b> Meet with a certified VedaNova Ayurvedic physician via secure video call for an in-depth diagnosis and treatment plan.", bullet_style))
-    story.append(Paragraph("<b>Step 3: Continuous Care & Habit Tracking:</b> Receive your custom diet plan, herbal remedies, and daily guidance via the VedaNova wellness portal.", bullet_style))
+    story.append(Paragraph("<b>Step 1: Connect Your Data:</b> Upload CSV, Excel, or Parquet files, or connect your company SQL database.", bullet_style))
+    story.append(Paragraph("<b>Step 2: Ask Anything:</b> Type any business question in plain English. NexaData translates it to sandboxed SQL with self-healing accuracy.", bullet_style))
+    story.append(Paragraph("<b>Step 3: Executive Reporting:</b> Instantly receive interactive charts, tabular results, and one-click C-suite PDF/Excel downloads.", bullet_style))
 
     # Section 4: Policies
-    story.append(Paragraph("4. Booking, Rescheduling & Refund Policy", h1_style))
-    story.append(Paragraph("• <b>Rescheduling & Cancellations:</b> Appointments may be rescheduled or canceled with full refund up to 24 hours prior to the scheduled session. Cancellations within 24 hours incur a 50% cancellation fee.", bullet_style))
-    story.append(Paragraph("• <b>Product Satisfaction Guarantee:</b> All unopened herbal formulations carry a 14-day 100% money-back satisfaction guarantee.", bullet_style))
-    story.append(Paragraph("• <b>Support Contact:</b> Support is reachable at support@vedanovasolutions.com or through the VedaNova AI Assistant.", bullet_style))
-
-    # Section 5: FAQs
-    story.append(Paragraph("5. Frequently Asked Questions (FAQ)", h1_style))
-    story.append(Paragraph("<b>Q: Are VedaNova treatments safe alongside conventional modern medicine?</b><br/>A: Yes. Our practitioners practice integrative wellness, reviewing existing prescription medications to avoid herb-drug interactions.", body_style))
-    story.append(Spacer(1, 4))
-    story.append(Paragraph("<b>Q: How soon can I expect results from the holistic programs?</b><br/>A: While digestion and sleep improvements are typically noted within 7-14 days, chronic conditions like metabolic imbalance and joint stiffness generally show sustainable benefits within 6-12 weeks.", body_style))
+    story.append(Paragraph("4. Security, Privacy & Guarantee", h1_style))
+    story.append(Paragraph("• <b>Zero Data Leakage:</b> Customer dataset rows are never used for AI model training. Queries execute in sandboxed environments.", bullet_style))
+    story.append(Paragraph("• <b>Satisfaction Guarantee:</b> All subscription plans carry a 14-day 100% money-back satisfaction guarantee.", bullet_style))
+    story.append(Paragraph("• <b>Support Contact:</b> Support is reachable 24/7 at support@nexadata.ai or via the NexaData AI Assistant.", bullet_style))
 
     doc.build(story)
     print(f"Sample PDF successfully generated at: {pdf_path}")
 
 if __name__ == "__main__":
-    create_vedanova_pdf()
+    create_nexadata_pdf()

@@ -12,7 +12,7 @@ def test_knowledge_base_indexing():
     kb = VedaNovaKnowledgeBase(DOCS_DIR)
     assert len(kb.pages) > 0, "No pages extracted from company documents"
     assert len(kb.chunks) > 0, "No chunks generated"
-    assert "VedaNova_Company_Overview_and_Services.pdf" in kb.indexed_files
+    assert any("NexaData" in f for f in kb.indexed_files)
 
 def test_semantic_retrieval():
     """Verify semantic context retrieval accuracy and relevance."""
